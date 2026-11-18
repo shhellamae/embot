@@ -28,14 +28,21 @@ noBtn.addEventListener("touchstart", (e) => {
 });
 
 // Action when Yes is clicked
+// Action when Yes is clicked
 yesBtn.addEventListener("click", () => {
-    // 1. Hide buttons and title, show "I know!" text
+    // 1. Hide buttons and title immediately
     buttonContainer.style.display = "none";
     mainTitle.style.display = "none";
-    successMessage.style.display = "block";
 
-    // 2. Trigger confetti burst
-    const duration = 3 * 1000;
+    // 2. Show the final picture container and start the song instantly!
+    revealContainer.style.display = "flex";
+    
+    bgSong.play().catch(error => {
+        console.log("Audio playback failed:", error);
+    });
+
+    // 3. Trigger confetti burst right away
+    const duration = 3 * 6000;
     const animationEnd = Date.now() + duration;
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1500 };
 
@@ -60,19 +67,4 @@ yesBtn.addEventListener("click", () => {
             origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } 
         }));
     }, 250);
-
-    // 3. After 1.5 seconds, fade out text, reveal the final picture, and start the song
-    setTimeout(() => {
-        successMessage.classList.add("fade-out");
-
-        setTimeout(() => {
-            successMessage.style.display = "none";
-            revealContainer.style.display = "flex";
-            
-            // Start playing song right as the final picture appears
-            bgSong.play().catch(error => {
-                console.log("Audio playback failed:", error);
-            });
-        }, 800);
-    }, 1500);
 });

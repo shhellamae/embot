@@ -212,7 +212,7 @@ body {
     align-items: center;
     z-index: 2000;
     opacity: 0;
-    animation: slowFadeIn 2s ease forwards; /* Takes 2 seconds to slowly fade in */
+    animation: slowFadeIn 1s ease forwards; /* Takes 1 second to slowly fade in */
 }
 
 .reveal-img {
