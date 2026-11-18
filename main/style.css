@@ -1,0 +1,235 @@
+/* Cropella Theme & Layout Styles */
+:root {
+  --primary-pink: #E34F9B;
+  --primary-pink-dark: #C93683;
+  --brand-dark: #A52D75;
+  --brand-tint: #FCE4F0;
+  --bg-light: #FFF0F7;
+  --surface: #FFFFFF;
+  --border-subtle: #F5D6E6;
+}
+
+span img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+/* Base */
+body {
+  background-color: var(--bg-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+/* Falling Petals Animation */
+@keyframes drift {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 0.9; }
+  50% {
+    transform: translateY(50vh) translateX(24px) rotate(180deg);
+  }
+  90% { opacity: 0.9; }
+  100% {
+    transform: translateY(110vh) translateX(-18px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.petals {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.petals span {
+  position: absolute;
+  top: 0;
+  left: var(--x);
+  font-size: var(--z);
+  opacity: 0;
+  animation: drift var(--d) linear var(--s) infinite;
+}
+
+.bounce-image {
+    width: 200px;
+    height: auto;
+    animation: bounce 1.5s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
+}
+
+.bounce-pop {
+    width: 150px;
+    height: auto;
+    animation: bouncePop 1.5s ease-in-out infinite;
+    opacity: 0.25; /* Subtle background watermark effect */
+}
+
+@keyframes bouncePop {
+    0%, 100% { transform: translateY(0) scale(1); }
+    20% { transform: translateY(-25px) scale(1.15); }
+    40% { transform: translateY(0) scale(0.9); }
+    60% { transform: translateY(-15px) scale(1.1); }
+    80% { transform: translateY(0) scale(0.95); }
+}
+
+.image-container {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Spinning Pop-up Text Styling */
+.pop-container {
+    text-align: center;
+    margin-bottom: 30px;
+    z-index: 10;
+}
+
+.spinning-pop-text {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: var(--primary-pink);
+    text-shadow: 0 4px 15px rgba(227, 79, 155, 0.25);
+    animation: spinAndPop 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes spinAndPop {
+    0% {
+        transform: scale(0) rotate(-720deg);
+        opacity: 0;
+    }
+    70% {
+        transform: scale(1.15) rotate(10deg);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* Button Layout */
+.button-container {
+    position: relative;
+    width: 320px;
+    height: 80px;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-pink {
+    background-color: var(--primary-pink);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 12px 30px;
+    box-shadow: 0 4px 12px rgba(227, 79, 155, 0.3);
+    transition: background-color 0.2s ease;
+}
+
+.btn-pink:hover {
+    background-color: var(--primary-pink-dark);
+    color: white;
+}
+
+#noBtn {
+    position: absolute;
+    padding: 12px 30px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+    transition: left 0.15s ease, top 0.15s ease;
+}
+
+/* Add this to the bottom of your existing style.css */
+.success-text {
+    animation: fadeInScale 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    color: var(--primary-pink);
+    font-weight: bold;
+    text-shadow: 0 4px 15px rgba(227, 79, 155, 0.25);
+}
+
+@keyframes fadeInScale {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Container that fades out smoothly when Yes is clicked */
+.fade-out {
+    animation: fadeOutSection 0.8s ease forwards;
+}
+
+@keyframes fadeOutSection {
+    to {
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(0.9);
+    }
+}
+
+/* Final Reveal Image Styling & Slow Fade-in Animation */
+.reveal-container {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    animation: slowFadeIn 2s ease forwards; /* Takes 2 seconds to slowly fade in */
+}
+
+.reveal-img {
+    max-width: 80vw;
+    max-height: 70vh;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(227, 79, 155, 0.3);
+    object-fit: contain;
+}
+
+@keyframes slowFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
